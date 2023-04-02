@@ -4,8 +4,6 @@ from Crypto.Util.Padding import unpad
 from PIL import Image
 import matplotlib.pyplot as plt 
 import matplotlib.image as mpimg 
-import os
-import cv2
 
 def encrypt_image(input_file, key):
     # 이미지 파일을 열어서 바이트 형태로 읽어들입니다.
@@ -60,10 +58,3 @@ def decrypt_image(input_file, key):
 # key2 = b'@\x9f\xfa0\xd5\x90\x03\xbd'
 # decrypt_image(input_file2, output_file2, key2)
 
-
-image = cv2.imread("images/040.jpg", cv2.IMREAD_UNCHANGED)
-height, width, channel = image.shape
-print(height, width , channel)
-cv2.imshow("crypto image", image)
-cv2.waitKey()
-cv2.destroyAllWindows()
