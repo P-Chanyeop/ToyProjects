@@ -53,7 +53,6 @@ if connectionSock:
             except Exception as ex:
                 print(ex)
         print('전송완료 "%s", 전송량 %d' % (filename, data_transferred))
-        print(data)
         
     if select == 'n':
         print("파일 %s 전송 시작" % filename )
@@ -66,8 +65,7 @@ if connectionSock:
                     
             except Exception as ex:
                 print(ex)
-        print('전송완료 %s", 전송량 %d' % (filename, data_transferred))
-        print(data)
+        print('전송완료 "%s", 전송량 %d' % (filename, data_transferred))
 
 print("파일 전송 끝")
 sys.exit()
