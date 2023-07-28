@@ -1,7 +1,7 @@
 from socket import *
 from os.path import exists
 import sys
-import DES_Algorithm as des
+import DES_Algorithm as DES
 from PIL import Image
 import numpy as np
 import cv2
@@ -26,17 +26,17 @@ if connectionSock:
     if select == 'y':
         print("이미지를 암호화중....Loading...")
         # 복호화 후 이미지 저장
-        img = cv2.imread("/Users/pcy/Desktop/works/python/Practice/"+ filename)  # 이미지 읽기
+        img = cv2.imread("/Users/pcy/Desktop/works/python/Practice/Practice/"+ filename)  # 이미지 읽기
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # BGR -> RGB 순서 변경
-        img = cv2.resize(img, (1000, 1000))  # 이미지 크기 조정
+        img = cv2.resize(img, (128, 128))  # 이미지 크기 조정
         img_arr = np.array(img)  # 배열로 변환
 
-        des.DES_CBC(img, [1,2,3,4,5,6,7,8], round = 16)
+        DES.DES_CBC(img, [1,2,3,4,5,6,7,8], round = 1)
         print('이미지 암호화 >>> "Encrypted_img.jpg" 이름으로 저장 완료.')
-        time.sleep(5)
+        
         
         filename = 'Encrypted_img.jpg'
-
+        
         if not exists('Encrypted_img.jpg'):
             print("no file")
             sys.exit()

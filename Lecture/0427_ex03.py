@@ -38,3 +38,6 @@ print(f'extend([77, 88, 77] 이후의 리스트 : {myList}')
 # 리스트안의 77의 요소 개수 출력
 print(f'77의 개수 : {myList.count(77)}')
 
+# 리스트의 정렬
+print(f'sorted()된 리스트 : {sorted(myList)}')
+

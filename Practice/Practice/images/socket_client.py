@@ -17,9 +17,10 @@ clientSock.sendall(filename.encode('utf-8'))
 data = clientSock.recv(1024)
 data_transferred = 0
 
-select = int(input('1. 파일 받기 \n2. 이미지 복호화\n입력>>'))
 
 while(True):
+    select = int(input('1. 파일 받기 \n2. 이미지 복호화\n입력>>'))
+
     if select == 1:
         if not data:
             print('파일 %s 가 서버에 존재하지 않음' % filename)
@@ -35,16 +36,10 @@ while(True):
             except Exception as ex:
                 print(ex)
         print('파일 "%s" 받기 완료. 전송량 %d' % (filename, data_transferred))
-        break
 
     elif select == 2 :
         print("이미지를 복호화중.....Loading...")
-        img = cv2.imread("/Users/pcy/Desktop/works/python/Practice/"+ filename)  # 이미지 읽기
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # BGR -> RGB 순서 변경
-        img = cv2.resize(img, (1000, 1000))  # 이미지 크기 조정
-        img_arr = np.array(img)  # 배열로 변환
         
-        filename = 'Encrypted_img.jpg'
         if not data:
             print('파일 %s 가 서버에 존재하지 않음' % filename)
             sys.exit()
@@ -59,15 +54,23 @@ while(True):
             except Exception as ex:
                 print(ex)
         print('파일 "%s" 받기 완료. 전송량 %d' % (filename, data_transferred))
-
-        encrpyted_img = des.DES_CBC(img_arr, [1,2,3,4,5,6,7,8], round = 16)
-        # 복호화 후 이미지 저장 (DES_CBC_decrypt 함수에 사용한 cv모듈을 사용시 jpg를 변환하는 과정에서 이미지 색상정보가 약간 깨질 가능성이 있다.)
-        des.DES_CBC_decrypt(encrpyted_img , [1,2,3,4,5,6,7,8], round = 16)
+        
+        img = cv2.imread("/Users/pcy/Desktop/works/python/Practice/Practice/images/"+ filename)  # 이미지 읽기
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)  # BGR -> RGB 순서 변경
+        img = cv2.resize(img, (128, 128))  # 이미지 크기 조정
+        img_arr = np.array(img)  # 배열로 변환
+        des.DES_CBC_decrypt(img_arr, [1,2,3,4,5,6,7,8], round=1)
         print('암호화된 이미지 복호화 >>> "Decrypted_img" 이름으로 저장 완료.')
-        break
+        
+
+        # encrpyted_img = des.DES_CBC(img_arr, [1,2,3,4,5,6,7,8], round = 16)
+        # 복호화 후 이미지 저장 (DES_CBC_decrypt 함수에 사용한 cv모듈을 사용시 jpg를 변환하는 과정에서 이미지 색상정보가 약간 깨질 가능성이 있다.)
+    
+        
         
     else:
         print("잘못 입력하셨습니다. 다시 입력해주세요")
+        break
     
 print("파일 전송 끝")
 sys.exit()
